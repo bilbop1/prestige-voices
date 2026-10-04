@@ -1,0 +1,1 @@
+Fifteen premier ElevenLabs voices, cast inside Claude. Tell it what you're making (a 45-second onboarding video, a sci-fi trailer, a sleep story), hear the real previews, and leave with a script and the exact voice ID. Install with /plugin marketplace add bilbop1/prestige-voices
