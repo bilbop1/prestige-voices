@@ -15,7 +15,7 @@ In Claude Code:
 /plugin install prestige-voices@prestige-voices-marketplace
 ```
 
-From your shell, run `claude plugin marketplace add bilbop1/prestige-voices`, then `claude plugin install prestige-voices@prestige-voices-marketplace`. The helper scripts need Python 3.9 or newer and nothing else.
+From your shell, run `claude plugin marketplace add bilbop1/prestige-voices`, then `claude plugin install prestige-voices@prestige-voices-marketplace`. Start a new Claude session after installing. The installed skill needs no Python, account key or executable helper. The optional standalone repository tools need Python 3.9 or newer and nothing else.
 
 ## Use it
 
@@ -32,7 +32,9 @@ What happens next:
 3. You pick one, and Claude writes the script at that voice's pace in natural spoken language.
 4. Claude gives you the voice ID, the ElevenLabs share link and the next step.
 
-The catalog tool also works on its own, with no API key:
+The installed plugin reads its bundled catalog to cast voices and write scripts. It links to auditions and ElevenLabs, where you generate audio separately. The directory bundle is in [`directory-plugin/`](directory-plugin/).
+
+The standalone catalog tool also works on its own after cloning or downloading this repository, with no API key:
 
 ```
 python3 skills/prestige-voices/scripts/voices.py recommend "trailer for a sci-fi audio drama"
@@ -95,7 +97,7 @@ You don't need this plugin to generate. Open the voice's share link while signed
 
 Whether that works depends on your ElevenLabs account. The voice has to be in My Voices, and ElevenLabs says Voice Library voices aren't available through its API on the free tier. Every generation uses your own credits, and the owner of a shared voice can change or withdraw it.
 
-If you'd rather generate from Claude, there's an optional helper, `scripts/tts.py`. It calls the official ElevenLabs text-to-speech API with the voice you picked:
+For command-line generation, this repository has an optional standalone helper, `skills/prestige-voices/scripts/tts.py`. It is outside the installed plugin, which has no generation capability or key handling. The helper calls the official ElevenLabs text-to-speech API with the voice you picked:
 
 - It reads your key from the `ELEVENLABS_API_KEY` environment variable, which you set in your own shell. Don't paste keys into a chat.
 - `tts.py check --voice <name>` asks ElevenLabs whether your account can see that exact voice. It costs no credits.
@@ -115,7 +117,7 @@ Network requests happen only when you ask for them:
 - Share links open elevenlabs.io in your browser.
 - `tts.py` sends your key, the voice ID and, when generating, your script to api.elevenlabs.io.
 
-The showcase page carries its fonts inline, so it loads nothing from font services. Details are in [PRIVACY.md](PRIVACY.md).
+The showcase page carries its fonts inline, so it loads nothing from font services. Details for these standalone tools are in [PRIVACY.md](PRIVACY.md). The installed skill's policy is in [directory-plugin/PRIVACY.md](directory-plugin/PRIVACY.md).
 
 ## Limitations
 

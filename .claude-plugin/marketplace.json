@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "prestige-voices",
-      "source": "./",
+      "source": "./directory-plugin",
       "description": "Premier ElevenLabs voices for Shorts, explainers, documentaries, stories, trailers, onboarding and calm reads. Real previews, tailored shortlists, exact voice IDs."
     }
   ]
