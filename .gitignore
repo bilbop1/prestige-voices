@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.part
+
+# Local previews and generated takes
+previews/
+*.mp3
+*.wav
+
+# Launch video: keep the plan, copy and poster in git. The MP4 ships as a GitHub release asset
+# so the installable plugin tree stays free of large binaries.
+brag-output/work/
+brag-output/*.mp4
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

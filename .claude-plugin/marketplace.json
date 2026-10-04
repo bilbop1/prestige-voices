@@ -1,0 +1,15 @@
+{
+  "name": "prestige-voices-marketplace",
+  "description": "Prestige Voices: a premier ElevenLabs voice collection with casting, auditions and scripts inside Claude.",
+  "owner": {
+    "name": "bilbop",
+    "url": "https://github.com/bilbop1"
+  },
+  "plugins": [
+    {
+      "name": "prestige-voices",
+      "source": "./",
+      "description": "Premier ElevenLabs voices for Shorts, explainers, documentaries, stories, trailers, onboarding and calm reads. Real previews, tailored shortlists, exact voice IDs."
+    }
+  ]
+}

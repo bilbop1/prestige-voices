@@ -1,0 +1,18 @@
+{
+  "name": "prestige-voices",
+  "displayName": "Prestige Voices",
+  "version": "1.0.0",
+  "description": "Premier ElevenLabs voices for short videos, stories, explainers, documentaries, trailers, support and atmosphere. Describe the job, hear the real previews, get a script, and copy the exact voice ID.",
+  "author": {
+    "name": "bilbop",
+    "url": "https://github.com/bilbop1"
+  },
+  "homepage": "https://github.com/bilbop1/prestige-voices",
+  "repository": "https://github.com/bilbop1/prestige-voices",
+  "license": "MIT",
+  "keywords": ["elevenlabs", "voiceover", "text-to-speech", "narration", "voice-casting", "scriptwriting"],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://github.com/bilbop1/prestige-voices#readme",
+  "supportUrl": "https://github.com/bilbop1/prestige-voices/issues",
+  "privacyPolicyUrl": "https://github.com/bilbop1/prestige-voices/blob/codex/release/PRIVACY.md"
+}
