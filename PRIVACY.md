@@ -1,5 +1,7 @@
 # Privacy
 
+This policy covers the repository's audition board and optional standalone Python utilities. The installed Claude skill is scoped to casting and script writing; its separate policy is [directory-plugin/PRIVACY.md](directory-plugin/PRIVACY.md). The marketplace does not install or invoke these standalone utilities.
+
 Prestige Voices has no backend, account system, analytics or telemetry of its own. It never sends your conversations, scripts or keys to the plugin author.
 
 ## What runs where

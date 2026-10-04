@@ -6,6 +6,8 @@ Prestige Voices is a premier collection of fifteen distinct ElevenLabs voices: d
 
 ![The audition page with a shortlist for an onboarding video](assets/screenshot-shortlist.png)
 
+[Audition the collection](https://bilbop1.github.io/prestige-voices/) · [Install the Claude skill](#install)
+
 ## Install
 
 In Claude Code:
