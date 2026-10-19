@@ -41,7 +41,7 @@ Write for the ear. Read every line as if you were saying it to one listener.
 
 These depend on the model the user generates with. In the ElevenLabs app, the model is whatever is selected in Text to Speech, so ask them to check it before relying on tags. When unsure, leave tags out and use punctuation.
 
-- `eleven_multilingual_v2` (the API default, and what `tts.py` uses unless told otherwise) accepts `<break time="1.0s" />` for pauses up to 3 seconds.
+- `eleven_multilingual_v2` (the API reference default and the helper's fallback model) accepts `<break time="1.0s" />` for pauses up to 3 seconds. The helper starts on `eleven_v4`.
 - Eleven v3 and v4 don't support break tags. Use ellipses, dashes and sentence structure for pacing.
 - For a word that keeps coming out wrong, respell it phonetically in the script ("Worcester" as "Wuss-ter"), or use a pronunciation dictionary in ElevenLabs.
 

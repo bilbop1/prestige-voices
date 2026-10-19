@@ -5,16 +5,20 @@ Reads the API key from the ELEVENLABS_API_KEY environment variable and sends it
 only to api.elevenlabs.io. The key is never printed, logged, or written to disk.
 
   check  Ask ElevenLabs whether your account can see the voice. Not billable.
+  add    Add the selected shared voice to My Voices after --confirm.
   speak  Generate new speech with the selected voice. BILLABLE: it uses your
          ElevenLabs character credits, so it only sends the request when you
          pass --confirm-billable. Without that flag it prints a dry run.
 
-There is no fallback voice and no automatic retry. If the selected voice is
+There is no fallback voice. A definite v4 model rejection (HTTP 422) permits one
+attempt with the API's documented default model, announced before it is sent.
+Other errors are never retried. If the selected voice is
 unavailable, the helper stops and tells you why. Authenticated requests never
 follow redirects, so the key can't be forwarded to another host.
 
 Examples:
   python3 tts.py check --voice Dexter
+  python3 tts.py add Dexter --confirm
   python3 tts.py speak --voice Dexter --text-file script.txt --out dexter-take1.mp3
   python3 tts.py speak --voice Dexter --text-file script.txt --out dexter-take1.mp3 --confirm-billable
 """
@@ -37,9 +41,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from voices import ToolError, find_voice, load_catalog  # noqa: E402
 
 OFFICIAL_API = "https://api.elevenlabs.io"
-DEFAULT_MODEL = "eleven_multilingual_v2"  # the API's documented default model_id
+DEFAULT_MODEL = "eleven_v4"
+FALLBACK_MODEL = "eleven_multilingual_v2"  # API reference default, checked 2026-10-19
 DEFAULT_FORMAT = "mp3_44100_128"
-USER_AGENT = "prestige-voices/1.0"
+USER_AGENT = "prestige-voices/1.1"
 MAX_AUDIO_BYTES = 200 * 1024 * 1024
 FORMAT_EXT = {"mp3": ".mp3", "opus": ".opus", "wav": ".wav", "pcm": ".pcm", "ulaw": ".ulaw", "alaw": ".alaw"}
 
@@ -99,12 +104,13 @@ def _error_detail(err: urllib.error.HTTPError, key: str) -> tuple[str, str]:
         return "", ""
 
 
-def explain_http_error(err: urllib.error.HTTPError, voice: dict, key: str, model: str | None = None) -> str:
+def explain_http_error(err: urllib.error.HTTPError, voice: dict, key: str, model: str | None = None,
+                       detail: tuple[str, str] | None = None) -> str:
     code = err.code
     if 300 <= code < 400:
         return (f"ElevenLabs answered with a redirect (HTTP {code}). It wasn't followed, so your key went nowhere "
                 "else. Nothing was generated. Try again later.")
-    status, message = _error_detail(err, key)
+    status, message = detail if detail is not None else _error_detail(err, key)
     said = f" ElevenLabs said: {message}" if message else ""
     if code == 401 and "quota" in status:
         return f"Your ElevenLabs account is out of character credits for this request.{said}"
@@ -118,7 +124,7 @@ def explain_http_error(err: urllib.error.HTTPError, voice: dict, key: str, model
         return f"ElevenLabs says your plan or billing doesn't cover this request (HTTP {code}).{said}"
     if code == 422 or (model and "model" in (status + message).lower()):
         return (f"ElevenLabs rejected the request (HTTP {code}).{said}\n"
-                f"If the message mentions the model, try --model {DEFAULT_MODEL}.")
+                f"If the message mentions the model, try --model {FALLBACK_MODEL}.")
     if code == 429:
         return f"ElevenLabs is rate limiting this account (HTTP 429). Wait a minute and try again.{said}"
     return f"ElevenLabs returned HTTP {code}.{said}"
@@ -135,21 +141,33 @@ def _never_sent(err: BaseException) -> bool:
     return isinstance(reason, (ConnectionRefusedError, socket.gaierror))
 
 
-def _network_error(err: BaseException, billable: bool) -> ToolError:
+def _network_error(err: BaseException, billable: bool, mutation: bool = False) -> ToolError:
     reason = getattr(err, "reason", err) or type(err).__name__
+    if mutation and not _never_sent(err):
+        return ToolError("The connection dropped after the add-voice request was sent. It's unknown whether "
+                         "the voice was added. Nothing was retried. Check My Voices before trying again.")
     if not billable or _never_sent(err):
         return ToolError(f"Could not reach ElevenLabs ({reason}). Check your connection. No request was processed.")
     return ToolError(UNKNOWN_OUTCOME.format(reason=reason))
 
 
+class _V4ModelRejected(ToolError):
+    """A definite rejected model request, before any generation was accepted."""
+
+
 def _open(req: urllib.request.Request, timeout: float, voice: dict, key: str, model: str | None = None,
-          billable: bool = False):
+          billable: bool = False, mutation: bool = False):
     try:
         return _OPENER.open(req, timeout=timeout)
     except urllib.error.HTTPError as e:
-        raise ToolError(explain_http_error(e, voice, key, model))
+        detail = _error_detail(e, key)
+        status, message = detail
+        model_error = status in {"invalid_model", "model_not_found", "model_not_supported", "unsupported_model"}
+        if e.code == 422 and model == DEFAULT_MODEL and model_error:
+            raise _V4ModelRejected(explain_http_error(e, voice, key, model, detail))
+        raise ToolError(explain_http_error(e, voice, key, model, detail))
     except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException) as e:
-        raise _network_error(e, billable)
+        raise _network_error(e, billable, mutation)
 
 
 def cmd_check(args) -> int:
@@ -172,6 +190,46 @@ def cmd_check(args) -> int:
     if data.get("category"):
         print(f"Category: {redact(str(data['category']), key)}")
     print("This check used no credits. Generation still depends on your plan, credits and model.")
+    return 0
+
+
+def shared_owner(voice: dict) -> str:
+    url = urllib.parse.urlparse(voice["share_url"])
+    parts = url.path.strip("/").split("/")
+    if parts and parts[0] == "app":
+        parts = parts[1:]
+    if (url.scheme != "https" or url.hostname != "elevenlabs.io" or len(parts) != 4
+            or parts[:2] != ["voice-lab", "share"] or parts[3] != voice["voice_id"]
+            or not re.fullmatch(r"[A-Za-z0-9]+", parts[2])):
+        raise ToolError("The catalog share link is invalid. Nothing was sent.")
+    return parts[2]
+
+
+def cmd_add(args) -> int:
+    if bool(args.voice) == bool(args.voice_name):
+        raise ToolError("Choose one catalog voice with add <voice> or add --voice <voice>.")
+    voice = find_voice(load_catalog(), args.voice or args.voice_name)
+    owner = shared_owner(voice)
+    if not args.confirm:
+        print(f"Dry run. Nothing was sent. Would add {voice['short_name']} to your ElevenLabs My Voices.")
+        print("Only pass --confirm after the user explicitly agrees to add this voice to their account.")
+        return 0
+    key = api_key()
+    base = api_base(args.api_base)
+    req = urllib.request.Request(
+        f"{base}/v1/voices/add/{owner}/{voice['voice_id']}", method="POST",
+        data=json.dumps({"new_name": voice["short_name"]}).encode("utf-8"),
+        headers={"xi-api-key": key, "Content-Type": "application/json", "User-Agent": USER_AGENT})
+    with _open(req, args.timeout, voice, key, mutation=True) as resp:
+        try:
+            data = json.loads(resp.read(1024 * 1024).decode("utf-8", "replace"))
+        except (ValueError, OSError, http.client.HTTPException):
+            raise ToolError("The add-voice response was unreadable. Check My Voices before trying again.")
+    added_id = data.get("voice_id") if isinstance(data, dict) else None
+    if not isinstance(added_id, str) or not re.fullmatch(r"[A-Za-z0-9]{1,100}", added_id):
+        raise ToolError("ElevenLabs did not confirm an added voice ID. Check My Voices before trying again.")
+    print(f"Added {voice['short_name']} to My Voices. Voice ID returned by ElevenLabs: {added_id}")
+    print("No speech was generated. Generating audio separately uses your own credits.")
     return 0
 
 
@@ -227,14 +285,26 @@ def cmd_speak(args) -> int:
     if settings:
         body["voice_settings"] = settings
     query = urllib.parse.urlencode({"output_format": args.format})
-    req = urllib.request.Request(
-        f"{base}/v1/text-to-speech/{voice['voice_id']}?{query}", method="POST",
-        data=json.dumps(body).encode("utf-8"),
-        headers={"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/*",
-                 "User-Agent": USER_AGENT})
-    with _open(req, args.timeout, voice, key, args.model, billable=True) as resp:
+    def request(model):
+        body["model_id"] = model
+        req = urllib.request.Request(
+            f"{base}/v1/text-to-speech/{voice['voice_id']}?{query}", method="POST",
+            data=json.dumps(body).encode("utf-8"),
+            headers={"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/*",
+                     "User-Agent": USER_AGENT})
+        return _open(req, args.timeout, voice, key, model, billable=True)
+    try:
+        response = request(args.model)
+    except _V4ModelRejected:
+        print(f"ElevenLabs rejected Eleven v4 with a model-specific HTTP 422. Trying {FALLBACK_MODEL} once "
+              "with the same voice and script, using your agreed credit budget.", file=sys.stderr)
+        response = request(FALLBACK_MODEL)
+        summary = summary.replace(f"Model: {args.model}\n", f"Model: {FALLBACK_MODEL} (v4 rejected)\n")
+    with response as resp:
         ctype = resp.headers.get("Content-Type", "")
         request_id = redact(resp.headers.get("request-id", ""), key)
+        length_header = resp.headers.get("Content-Length")
+        expected_bytes = int(length_header) if length_header and length_header.isdigit() else None
         if not (ctype.startswith("audio/") or ctype == "application/octet-stream"):
             raise ToolError(f"Expected audio but ElevenLabs sent '{redact(ctype, key)}'. Nothing was saved.")
         fd, tmp = tempfile.mkstemp(dir=out.parent, suffix=".part")
@@ -254,6 +324,8 @@ def cmd_speak(args) -> int:
                     fh.write(chunk)
             if size == 0:
                 raise ToolError("ElevenLabs returned no audio. Nothing was saved.")
+            if expected_bytes is not None and size != expected_bytes:
+                raise ToolError(UNKNOWN_OUTCOME.format(reason="incomplete audio response"))
             os.replace(tmp, out)
         finally:
             if os.path.exists(tmp):
@@ -266,9 +338,12 @@ def cmd_speak(args) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="tts.py", description="Optional ElevenLabs helper. Uses ELEVENLABS_API_KEY.")
     sub = p.add_subparsers(dest="cmd", required=True)
-    for name in ("check", "speak"):
+    for name in ("check", "add", "speak"):
         s = sub.add_parser(name)
-        s.add_argument("--voice", required=True, help="short name, slug or voice ID from the collection")
+        s.add_argument("--voice", required=name != "add", help="short name, slug or voice ID from the collection")
+        if name == "add":
+            s.add_argument("voice_name", nargs="?", help="catalog short name, slug or voice ID")
+            s.add_argument("--confirm", action="store_true", help="add this voice after the user's explicit yes")
         s.add_argument("--timeout", type=float, default=60 if name == "speak" else 20)
         s.add_argument("--api-base", help=argparse.SUPPRESS)
         if name == "speak":
@@ -293,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     args = build_parser().parse_args(argv)
     try:
-        return {"check": cmd_check, "speak": cmd_speak}[args.cmd](args)
+        return {"check": cmd_check, "add": cmd_add, "speak": cmd_speak}[args.cmd](args)
     except ToolError as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1

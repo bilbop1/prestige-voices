@@ -2,24 +2,34 @@
 
 **Premier voices. Make it sound exceptional.**
 
-Prestige Voices is a premier collection of fifteen distinct ElevenLabs voices: deep documentary narrators, quick Short and Reel voices, a calm support guide, broadcast reads, trailer-scale performers, Southern storytellers and a close-mic comfort voice. It also includes a Claude skill that casts the right one for your project. Say what you're making and get a tailored shortlist. Then hear the real previews, get a script written for the voice you choose, and copy the exact voice ID into ElevenLabs.
+Prestige Voices is a collection of fifteen ElevenLabs voices for narration, short video, support and fiction. The agent skill matches your project to a shortlist, links real previews, and writes a script for the voice you choose. With your own ElevenLabs key and approval, its optional helpers can add that voice to My Voices and generate audio.
 
 ![The audition page with a shortlist for an onboarding video](assets/screenshot-shortlist.png)
 
-[Audition the collection](https://bilbop1.github.io/prestige-voices/) · [Install the Claude skill](#install)
+[Audition the collection](https://bilbop1.github.io/prestige-voices/) · [Install the agent skill](#install) · [Voice Field Guide](https://voicefieldguide.com/for-agents)
 
 [Watch the 22-second launch demo](https://github.com/bilbop1/prestige-voices/releases/download/v1.0.1/prestige-voices-launch.mp4). The `/brag` poster, storyboard and share copy are in [`brag-output/`](brag-output/).
 
 ## Install
 
-In Claude Code:
+For Claude Code, Codex, Cursor, OpenCode and other agents supported by the [skills CLI](https://github.com/vercel-labs/skills), run this in your terminal and choose your agent:
+
+```
+npx skills add bilbop1/prestige-voices
+```
+
+This installs [`skills/prestige-voices/`](skills/prestige-voices/), including the optional Python helpers. Casting and script drafting need no ElevenLabs key. Local helpers need Python 3.9 or newer and no third-party Python packages. Adding a shared voice needs your key and explicit approval; generating audio also uses your credits.
+
+For the Claude Code plugin, run these inside Claude:
 
 ```
 /plugin marketplace add bilbop1/prestige-voices
 /plugin install prestige-voices@prestige-voices-marketplace
 ```
 
-From your shell, run `claude plugin marketplace add bilbop1/prestige-voices`, then `claude plugin install prestige-voices@prestige-voices-marketplace`. Start a new Claude session after installing. The installed skill needs no Python, account key or executable helper. The optional standalone repository tools need Python 3.9 or newer and nothing else.
+From your shell, run `claude plugin marketplace add bilbop1/prestige-voices`, then `claude plugin install prestige-voices@prestige-voices-marketplace`. Start a new Claude session after installing. The marketplace still installs [`directory-plugin/`](directory-plugin/), the existing casting-only bundle. It links previews and writes scripts, with no executable helpers, Python requirement or key handling. The `npx skills` installation includes the add and generation helpers; the marketplace plugin does not.
+
+The agent skill and repository release are 1.1.0. The frozen marketplace bundle stays at 1.0.1 while its directory review is pending.
 
 ## Use it
 
@@ -27,14 +37,14 @@ From your shell, run `claude plugin marketplace add bilbop1/prestige-voices`, th
 /prestige-voices 45-second onboarding video showing dentists how to connect their calendar. Calm, not salesy.
 ```
 
-You can also ask in plain words, like "which voice should I use for my trailer?", and Claude picks the skill up. Some Claude Code versions list the command as `/prestige-voices:prestige-voices`.
+You can also ask in plain words, like "which voice should I use for my trailer?" Your agent can select the skill from that request. Some Claude Code versions list the plugin command as `/prestige-voices:prestige-voices`.
 
 What happens next:
 
-1. Claude shortlists two or three voices for that exact job and explains why each one fits.
+1. Your agent shortlists two or three voices for that exact job and explains why each one fits.
 2. You listen. Every voice has a real preview sample of 7 to 13 seconds. These are existing recordings, not audio made for your request.
-3. You pick one, and Claude writes the script at that voice's pace in natural spoken language.
-4. Claude gives you the voice ID, the ElevenLabs share link and the next step.
+3. You pick one, and the agent writes the script at that voice's pace.
+4. It gives you the voice ID and ElevenLabs share link. The `npx skills` version can offer to add the voice and generate audio with your key and approval.
 
 The installed plugin reads its bundled catalog to cast voices and write scripts. It links to auditions and ElevenLabs, where you generate audio separately. The directory bundle is in [`directory-plugin/`](directory-plugin/).
 
@@ -101,27 +111,28 @@ You don't need this plugin to generate. Open the voice's share link while signed
 
 Whether that works depends on your ElevenLabs account. The voice has to be in My Voices, and ElevenLabs says Voice Library voices aren't available through its API on the free tier. Every generation uses your own credits, and the owner of a shared voice can change or withdraw it.
 
-For command-line generation, this repository has an optional standalone helper, `skills/prestige-voices/scripts/tts.py`. It is outside the installed plugin, which has no generation capability or key handling. The helper calls the official ElevenLabs text-to-speech API with the voice you picked:
+For local generation, the `npx skills` package and this repository include `skills/prestige-voices/scripts/tts.py`. It is outside the marketplace plugin. The helper calls ElevenLabs with the voice you picked:
 
 - It reads your key from the `ELEVENLABS_API_KEY` environment variable, which you set in your own shell. Don't paste keys into a chat.
 - `tts.py check --voice <name>` asks ElevenLabs whether your account can see that exact voice. It costs no credits.
+- `tts.py add <name>` is a dry run. With your explicit yes and `--confirm`, it adds that catalog voice to My Voices using ElevenLabs' shared-voice endpoint. It generates no audio.
 - `tts.py speak ...` does a dry run by default and sends nothing. It only generates, and spends your credits, when you add `--confirm-billable`.
-- If your account can't use the voice, it tells you why and stops. It never switches to a different voice and never retries on its own.
+- The default model is `eleven_v4`. A model-specific HTTP 422 rejection permits one announced attempt with `eleven_multilingual_v2`, the API reference default. Other validation errors, denied voices and uncertain network outcomes stop without a retry. It keeps the selected voice.
 - If the connection drops after a generation request was sent, it tells you the outcome is unknown so you can check your ElevenLabs history before trying again.
 - It never follows redirects with your key, and it strips the key from any error text it shows.
 - It refuses to overwrite files unless you pass `--force`, and it saves nothing unless ElevenLabs actually returns audio.
 
 ## What runs and where data goes
 
-The catalog and recommendation helpers run offline on your machine. Claude drafts your scripts and explanations through your own Claude account, under that product's data handling. The plugin has no backend, analytics or telemetry of its own.
+The catalog and recommendation helpers run offline on your machine. Your agent drafts scripts through its own model provider under that product's data handling. This skill and the marketplace plugin have no backend, analytics or telemetry of their own.
 
 Network requests happen only when you ask for them:
 
 - Preview playback and downloads, and the voice pages, are public files on voicefieldguide.com. That host sees ordinary web requests, as any website would.
 - Share links open elevenlabs.io in your browser.
-- `tts.py` sends your key, the voice ID and, when generating, your script to api.elevenlabs.io.
+- `tts.py check` sends your key and voice ID to api.elevenlabs.io. `add --confirm` also sends the public sharing owner ID and the voice's display name. `speak --confirm-billable` sends your script and model/settings as well.
 
-The showcase page carries its fonts inline, so it loads nothing from font services. Details for these standalone tools are in [PRIVACY.md](PRIVACY.md). The installed skill's policy is in [directory-plugin/PRIVACY.md](directory-plugin/PRIVACY.md).
+The showcase page carries its fonts inline, so it loads nothing from font services. The agent skill and local tools are covered by [PRIVACY.md](PRIVACY.md). The marketplace plugin's policy is [directory-plugin/PRIVACY.md](directory-plugin/PRIVACY.md).
 
 ## Limitations
 
@@ -141,3 +152,7 @@ claude plugin validate --strict .
 ```
 
 The tests run offline against local mock servers. They cover recommendations for distinct jobs, missing keys, denied voice access, refused redirects, dropped connections, the billing gate and output path safety. If you change `voices.json` or the showcase template, regenerate the page with `python3 skills/prestige-voices/scripts/voices.py showcase --out showcase/index.html --force`.
+
+## ChatGPT preparation
+
+[`platforms/chatgpt-gpt/instructions.md`](platforms/chatgpt-gpt/instructions.md) contains the prepared GPT instructions, and [`voices.json`](platforms/chatgpt-gpt/voices.json) is its knowledge file. This version casts voices and writes scripts with public preview and share links. It has no ElevenLabs Action or account connection. Public GPT publication is a separate owner action.

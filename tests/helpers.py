@@ -31,6 +31,8 @@ class MockServer:
                                         "headers": {k.lower(): v for k, v in self.headers.items()}, "body": body})
                 for prefix, route in server.routes.items():
                     if self.path.startswith(prefix):
+                        if callable(route):
+                            route = route(server.requests[-1])
                         status, ctype, payload = route[:3]
                         if status == "hangup":
                             self.close_connection = True
@@ -39,7 +41,8 @@ class MockServer:
                         for name, value in (route[3] if len(route) > 3 else {}).items():
                             self.send_header(name, value)
                         self.send_header("Content-Type", ctype)
-                        self.send_header("Content-Length", str(len(payload)))
+                        if not any(name.lower() == "content-length" for name in (route[3] if len(route) > 3 else {})):
+                            self.send_header("Content-Length", str(len(payload)))
                         self.end_headers()
                         if self.command != "HEAD":
                             self.wfile.write(payload)

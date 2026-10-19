@@ -1,59 +1,62 @@
 # Using a Prestige voice in ElevenLabs
 
-Read this when the user is ready to generate audio, asks about access or cost, or hits an error.
+Read this when the user wants to add a voice, generate audio, asks about cost, or hits an access error.
 
-## Before anything generates
+## Account and access
 
-Things that decide whether generation works, in the order people usually hit them:
+The user needs an ElevenLabs account with the chosen voice in My Voices. Give the share link from `voices.py show <name>` so they can add it while signed in. Voice Library voices need a paid ElevenLabs plan for API use. Generating speech uses that account's credits, and sharing availability can change if the voice owner withdraws it.
 
-1. **An ElevenLabs account.** The share link only works when signed in.
-2. **The voice in My Voices.** Open the voice's share link (from `voices.py show <name>`) and add it to the library.
-3. **Plan.** ElevenLabs says Voice Library voices are not available through the API on the free tier. In the ElevenLabs app, availability depends on the user's plan.
-4. **Credits.** Every generation uses the user's own character credits.
-5. **Model.** The API default is `eleven_multilingual_v2`. If a request is rejected and the error mentions the model, retry with that one.
-6. **The voice owner's sharing settings.** Shared voices can be changed or withdrawn by their owner. If a voice disappears from the share link, it can't be used, and nothing in this plugin can restore it.
+The optional helper reads `ELEVENLABS_API_KEY` from the user's environment. They set it in their own shell. Never request a key in chat or print it. Use `python` on Windows if `python3` is unavailable. Resolve `${CLAUDE_SKILL_DIR}` to the installed skill directory when the agent has not filled it in.
 
-## Generating in the ElevenLabs app
+## Add the chosen voice
 
-Easiest path for most people. Open Text to Speech, choose the voice from My Voices, paste the script, generate. No key or code needed.
+Offer the share link or the helper. Without `--confirm`, this command is a local dry run and needs no key:
 
-## Optional: generate from here with `tts.py`
+```
+python3 "${CLAUDE_SKILL_DIR}/scripts/tts.py" add Dexter
+```
 
-`scripts/tts.py` calls the official ElevenLabs API with the selected voice ID. It reads the key from the `ELEVENLABS_API_KEY` environment variable in the user's own shell. Tell the user to set it themselves. Never ask them to paste the key into the conversation, and never print it.
+After the user's explicit yes to adding Dexter, append `--confirm`. The helper obtains the public owner ID from the catalog share link and calls ElevenLabs' [Add shared voice endpoint](https://elevenlabs.io/docs/api-reference/voices/voice-library/share) with the catalog name. It prints the returned voice ID and generates no speech. If the result is unreadable or the connection drops, check My Voices before trying again.
 
-Use `python` instead of `python3` on Windows. Give `--text-file` and `--out` as full paths, or run from the folder that holds the script.
+## Generate in the app
 
-Check access first. This is free and generates nothing:
+Open Text to Speech, choose the voice from My Voices, paste the script and generate. No API key is needed for this path. The selected model and the user's plan determine which settings are available.
+
+## Generate with the helper
+
+Check access without generating speech:
 
 ```
 python3 "${CLAUDE_SKILL_DIR}/scripts/tts.py" check --voice Dexter
 ```
 
-Generating is billable. Show the dry run first. It exits 0, prints the voice, model, character count and output path, and sends nothing:
+Show the dry run first. Give full paths to the script and output, using an existing output directory:
 
 ```
 python3 "${CLAUDE_SKILL_DIR}/scripts/tts.py" speak --voice Dexter --text-file /path/to/script.txt --out /path/to/dexter-take1.mp3
 ```
 
-Only after the user explicitly agrees to spend credits, add `--confirm-billable`. That run asks for permission every time, by design. Optional flags: `--model`, `--format` (default `mp3_44100_128`), `--speed` (0.7 to 1.2), `--stability`, `--similarity`, `--style`, `--force` to replace an existing file.
+The dry run prints the voice, model, character count and destination. After the user's explicit approval covers the credit spend, append `--confirm-billable`. Existing approval for that exact render is sufficient; do not ask for the same approval again.
 
-The helper refuses to overwrite files without `--force`, writes only to a folder that already exists, and saves nothing unless ElevenLabs returns audio.
+The helper starts on `eleven_v4`. If ElevenLabs rejects that model with HTTP 422 and a model-specific error status, it announces one attempt on `eleven_multilingual_v2`, the [API reference default](https://elevenlabs.io/docs/api-reference/text-to-speech/convert). The voice and script stay the same. Include that fallback when describing the proposed render. A user requiring v4 only can use the app path. Arbitrary validation errors do not trigger a fallback.
 
-## When it fails
+Use `--model` for another explicitly chosen model and `--format` for its output format. Settings flags are model-dependent; do not promise that v4 supports every slider. The default output is `mp3_44100_128`. The helper refuses to overwrite a file without `--force` and saves only a complete audio response. Report the actual output model and path.
 
-The helper explains each failure and stops. It never tries a different voice. Pass that on and help with the specific fix:
+## Failed requests
 
-| What it says | What to do |
+Resolve the reported problem before another request. The helper never changes the selected voice.
+
+| Result | Next step |
 |---|---|
-| `ELEVENLABS_API_KEY is not set` | User sets the variable in their shell, then retries. |
-| Rejected the API key (401) | Key is wrong, revoked, or lacks text-to-speech permission. |
-| Can't use the voice yet (400/403/404) | Add the voice from its share link. Check that the plan allows Voice Library voices through the API. |
-| Out of credits, or plan/billing | Their account needs credits or an upgrade. Nothing was generated. |
-| Rejected the request (422) | Usually the model or a setting. Retry with `--model eleven_multilingual_v2` and default settings. |
-| Rate limiting (429) | Wait and retry. |
-| Could not reach ElevenLabs ... No request was processed | Network problem before anything was sent. Safe to retry once it's fixed. |
-| Unknown whether ElevenLabs generated audio or charged credits | The connection dropped after the request went out. Don't rerun until the user checks their ElevenLabs history and usage, because a rerun could charge twice. |
-| Answered with a redirect | The helper refused to follow it, so the key went nowhere else. Try later. Don't work around it. |
-| Didn't return the voice, so access isn't confirmed | The account check came back for a different voice. Treat access as unproven and add the voice from its share link. |
+| Missing or rejected key | The user sets or corrects their local environment variable and its permissions. |
+| Voice unavailable or denied | Open its share link, add it to My Voices, and check plan access. |
+| Credits or billing rejected | The user checks their account's credits and plan. |
+| Model or settings rejected | Read the exact error. Only the model-specific v4 HTTP 422 path has an automatic fallback. |
+| Rate limiting | Wait for the limit to clear; there is no automatic retry. |
+| Connection refused or DNS failure before sending | Fix connectivity, then make a new request with the existing applicable approval. |
+| Unknown add outcome | Check My Voices before another add attempt. |
+| Unknown generation or charge outcome | Check ElevenLabs history and usage before another billable request. A truncated download is also an unknown outcome. |
+| Redirect | The helper refuses to forward the key. Keep using the official API rather than following the redirect. |
+| Check returns another voice | Treat access as unconfirmed and verify the selected voice in My Voices. |
 
-Never describe the preview samples as generated output. Only a successful `speak` run with `--confirm-billable` produces new audio.
+Fixed preview samples are auditions. Describe new audio as generated only after a successful confirmed `speak` run.

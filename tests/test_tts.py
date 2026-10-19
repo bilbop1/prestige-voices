@@ -61,7 +61,7 @@ class TTSHelper(unittest.TestCase):
         self.assertTrue(req["path"].startswith(f"/v1/text-to-speech/{DEXTER}?output_format=mp3_44100_128"))
         self.assertEqual(req["headers"].get("xi-api-key"), FAKE_KEY)
         body = json.loads(req["body"])
-        self.assertEqual(body["model_id"], "eleven_multilingual_v2")
+        self.assertEqual(body["model_id"], "eleven_v4")
         self.assertEqual(body["voice_settings"], {"speed": 0.95})
 
     def test_denied_voice_points_to_share_link_and_tries_no_other_voice(self):
@@ -84,6 +84,86 @@ class TTSHelper(unittest.TestCase):
         srv = self.server({"/v1/": (422, "application/json", json_body("invalid_model", "model not supported"))})
         res = self.speak(srv.url, "--confirm-billable", "--model", "eleven_v3")
         self.assertIn("--model eleven_multilingual_v2", res.stderr)
+
+    def test_v4_model_rejection_falls_back_once_to_documented_default(self):
+        def answer(req):
+            model = json.loads(req["body"])["model_id"]
+            if model == "eleven_v4":
+                return 422, "application/json", json_body("invalid_model", "model not supported")
+            return 200, "audio/mpeg", b"ID3fallback"
+        srv = self.server({"/v1/": answer})
+        res = self.speak(srv.url, "--confirm-billable")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertIn("model-specific HTTP 422", res.stderr)
+        self.assertIn("Model: eleven_multilingual_v2 (v4 rejected)", res.stdout)
+        self.assertEqual([json.loads(r["body"])["model_id"] for r in srv.requests],
+                         ["eleven_v4", "eleven_multilingual_v2"])
+        self.assertTrue(all(f"/text-to-speech/{DEXTER}?" in r["path"] for r in srv.requests))
+
+    def test_unrelated_422_does_not_fallback_or_charge_another_request(self):
+        srv = self.server({"/v1/": (422, "application/json", json_body("validation_error", "text is empty"))})
+        res = self.speak(srv.url, "--confirm-billable")
+        self.assertEqual(res.returncode, 1)
+        self.assertEqual(len(srv.requests), 1)
+
+    def test_rejected_fallback_stops_after_two_requests(self):
+        srv = self.server({"/v1/": (422, "application/json", json_body("invalid_model", "model not supported"))})
+        res = self.speak(srv.url, "--confirm-billable")
+        self.assertEqual(res.returncode, 1)
+        self.assertEqual(len(srv.requests), 2)
+
+    def add(self, base, *extra, key=True):
+        env = dict(self.env)
+        if key:
+            env["ELEVENLABS_API_KEY"] = FAKE_KEY
+        res = run_script("tts.py", "add", "Dexter", "--api-base", base, *extra, env=env)
+        self.assertNotIn(FAKE_KEY, res.stdout + res.stderr)
+        return res
+
+    def test_add_dry_run_needs_no_key_and_changes_nothing(self):
+        srv = self.server({"/": (200, "application/json", b"{}")})
+        res = self.add(srv.url, key=False)
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertIn("Dry run", res.stdout)
+        self.assertEqual(srv.requests, [])
+
+    def test_add_sends_catalog_owner_voice_and_name_after_confirm(self):
+        payload = json.dumps({"voice_id": DEXTER}).encode()
+        srv = self.server({"/v1/voices/add/": (200, "application/json", payload)})
+        res = self.add(srv.url, "--confirm")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        [req] = srv.requests
+        self.assertEqual(req["method"], "POST")
+        self.assertEqual(req["path"], "/v1/voices/add/2c79c9f85b01099b7eb10d1340f7f6d43d132db92fe0ede23cd10eef2678f8f1/" + DEXTER)
+        self.assertEqual(json.loads(req["body"]), {"new_name": "Dexter"})
+        self.assertEqual(req["headers"]["xi-api-key"], FAKE_KEY)
+        self.assertIn("No speech was generated", res.stdout)
+
+    def test_add_unconfirmed_and_denied_responses_are_not_success(self):
+        for payload in (b"{}", b"not-json"):
+            srv = self.server({"/v1/": (200, "application/json", payload)})
+            res = self.add(srv.url, "--confirm")
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("Check My Voices", res.stderr)
+        denied = self.server({"/v1/": (403, "application/json", json_body("voice_unavailable", "voice unavailable"))})
+        self.assertEqual(self.add(denied.url, "--confirm").returncode, 1)
+        self.assertEqual(len(denied.requests), 1)
+
+    def test_add_dropped_connection_is_unknown_and_not_retried(self):
+        srv = self.server({"/v1/": ("hangup", "", b"")})
+        res = self.add(srv.url, "--confirm")
+        self.assertEqual(res.returncode, 1)
+        self.assertIn("unknown whether the voice was added", res.stderr)
+        self.assertEqual(len(srv.requests), 1)
+
+    def test_add_refuses_redirect_and_missing_key(self):
+        elsewhere = self.server({"/": (200, "application/json", b"{}")})
+        srv = self.server({"/v1/": (302, "text/plain", b"", {"Location": elsewhere.url + "/collect"})})
+        self.assertEqual(self.add(srv.url, "--confirm").returncode, 1)
+        self.assertEqual(elsewhere.requests, [])
+        before = len(srv.requests)
+        self.assertEqual(self.add(srv.url, "--confirm", key=False).returncode, 1)
+        self.assertEqual(len(srv.requests), before)
 
     def test_refused_connection_means_nothing_was_processed(self):
         res = self.speak(closed_port_url(), "--confirm-billable")
@@ -124,6 +204,14 @@ class TTSHelper(unittest.TestCase):
         srv = self.server({"/v1/": (200, "text/html", b"<html>oops</html>")})
         res = self.speak(srv.url, "--confirm-billable")
         self.assertEqual(res.returncode, 1)
+        self.assertEqual(list(self.tmp.glob("*.mp3")) + list(self.tmp.glob("*.part")), [])
+
+    def test_truncated_audio_reports_unknown_billing_and_saves_nothing(self):
+        srv = self.server({"/v1/": (200, "audio/mpeg", b"ID3partial", {"Content-Length": "100"})})
+        res = self.speak(srv.url, "--confirm-billable")
+        self.assertEqual(res.returncode, 1)
+        self.assertIn("unknown whether ElevenLabs generated audio or charged credits", res.stderr)
+        self.assertEqual(len(srv.requests), 1)
         self.assertEqual(list(self.tmp.glob("*.mp3")) + list(self.tmp.glob("*.part")), [])
 
     def test_output_path_safety_checked_before_sending(self):

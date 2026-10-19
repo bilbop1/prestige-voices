@@ -1,0 +1,1122 @@
+{
+  "collection": "Prestige Voices",
+  "preview_origin": "https://voicefieldguide.com",
+  "voice_count": 15,
+  "fit_scale": {
+    "0": "wrong for this",
+    "1": "possible",
+    "2": "good",
+    "3": "first choice"
+  },
+  "categories": {
+    "short-video": {
+      "label": "Short video",
+      "keywords": [
+        "shorts",
+        "youtube shorts",
+        "reels",
+        "reel",
+        "tiktok",
+        "short-form",
+        "short form",
+        "social video",
+        "social clip",
+        "clip",
+        "clips",
+        "instagram",
+        "vertical video",
+        "30-second",
+        "60-second",
+        "30 second",
+        "60 second",
+        "creator"
+      ]
+    },
+    "hooks-ads": {
+      "label": "Hooks, ads and sales",
+      "keywords": [
+        "hook",
+        "hooks",
+        "ad",
+        "ads",
+        "advert",
+        "commercial",
+        "promo",
+        "promotion",
+        "sales",
+        "pitch",
+        "product launch",
+        "call to action",
+        "ugc",
+        "marketing",
+        "sales call",
+        "cold call",
+        "offer",
+        "landing page"
+      ]
+    },
+    "social-news": {
+      "label": "Social news and recaps",
+      "keywords": [
+        "trending",
+        "recap",
+        "recaps",
+        "update",
+        "updates",
+        "commentary",
+        "viral",
+        "headline",
+        "headlines",
+        "reaction",
+        "roundup",
+        "gossip",
+        "drama recap",
+        "weekly recap"
+      ]
+    },
+    "explainer": {
+      "label": "Explainers and education",
+      "keywords": [
+        "explainer",
+        "explainers",
+        "explain",
+        "explaining",
+        "education",
+        "educational",
+        "tutorial",
+        "lesson",
+        "course",
+        "how-to",
+        "how to",
+        "science",
+        "tech",
+        "finance",
+        "breakdown",
+        "video essay",
+        "essay",
+        "learning",
+        "e-learning",
+        "elearning"
+      ]
+    },
+    "documentary": {
+      "label": "Documentary and history",
+      "keywords": [
+        "documentary",
+        "documentaries",
+        "history",
+        "historical",
+        "deep dive",
+        "deep dives",
+        "true crime",
+        "biography",
+        "investigation",
+        "nature",
+        "archival"
+      ]
+    },
+    "long-form": {
+      "label": "Long-form narration",
+      "keywords": [
+        "long-form",
+        "long form",
+        "audiobook",
+        "audiobooks",
+        "chapter",
+        "lecture",
+        "narration",
+        "narrator",
+        "podcast",
+        "hour-long",
+        "20-minute",
+        "10-minute",
+        "15-minute",
+        "30-minute"
+      ]
+    },
+    "fiction": {
+      "label": "Fiction and story",
+      "keywords": [
+        "story",
+        "stories",
+        "storytelling",
+        "fiction",
+        "audio drama",
+        "sci-fi",
+        "science fiction",
+        "fantasy",
+        "horror",
+        "creepypasta",
+        "thriller",
+        "mystery",
+        "novel",
+        "short story",
+        "lore",
+        "ghost story",
+        "suspense"
+      ]
+    },
+    "trailer": {
+      "label": "Trailers and big moments",
+      "keywords": [
+        "trailer",
+        "trailers",
+        "teaser",
+        "cinematic",
+        "epic",
+        "intro",
+        "movie",
+        "game trailer",
+        "dramatic",
+        "suspense",
+        "announcement trailer"
+      ]
+    },
+    "support": {
+      "label": "Support and onboarding",
+      "keywords": [
+        "support",
+        "customer support",
+        "onboarding",
+        "training",
+        "walkthrough",
+        "help center",
+        "faq",
+        "instructions",
+        "ivr",
+        "phone menu",
+        "product tour",
+        "saas",
+        "internal training",
+        "compliance",
+        "setup guide",
+        "steps",
+        "help desk",
+        "customer service"
+      ]
+    },
+    "broadcast": {
+      "label": "Broadcast and announcements",
+      "keywords": [
+        "news",
+        "newscast",
+        "anchor",
+        "broadcast",
+        "bulletin",
+        "announcement",
+        "announcements",
+        "event coverage",
+        "press",
+        "corporate update",
+        "sports",
+        "report",
+        "weather",
+        "radio"
+      ]
+    },
+    "atmosphere": {
+      "label": "Calm and atmosphere",
+      "keywords": [
+        "relaxation",
+        "relax",
+        "relaxing",
+        "asmr",
+        "sleep",
+        "sleep story",
+        "meditation",
+        "comfort",
+        "soothing",
+        "wind down",
+        "bedtime",
+        "intimate",
+        "mindfulness",
+        "guided"
+      ]
+    },
+    "character": {
+      "label": "Characters and animation",
+      "keywords": [
+        "animation",
+        "animated",
+        "cartoon",
+        "character",
+        "characters",
+        "game",
+        "games",
+        "mascot",
+        "comedy",
+        "skit",
+        "parody"
+      ]
+    },
+    "inspirational": {
+      "label": "Motivation, faith and monologue",
+      "keywords": [
+        "motivation",
+        "motivational",
+        "inspirational",
+        "inspiring",
+        "faith",
+        "sermon",
+        "church",
+        "devotional",
+        "gospel",
+        "monologue",
+        "speech",
+        "pep talk",
+        "preacher",
+        "scripture"
+      ]
+    },
+    "southern": {
+      "label": "Southern and folk",
+      "keywords": [
+        "southern",
+        "south",
+        "country",
+        "folklore",
+        "folk tale",
+        "tall tale",
+        "tall tales",
+        "americana",
+        "western",
+        "appalachian",
+        "gothic",
+        "southern gothic",
+        "bayou",
+        "rural",
+        "drawl",
+        "texas"
+      ]
+    }
+  },
+  "traits": {
+    "deep": [
+      "deep",
+      "low",
+      "bass",
+      "heavy",
+      "baritone"
+    ],
+    "fast": [
+      "fast",
+      "quick",
+      "punchy",
+      "rapid",
+      "snappy",
+      "brisk"
+    ],
+    "energetic": [
+      "energetic",
+      "energy",
+      "hype",
+      "upbeat",
+      "lively",
+      "excited",
+      "high-energy"
+    ],
+    "calm": [
+      "calm",
+      "gentle",
+      "slow",
+      "unhurried",
+      "steady",
+      "patient",
+      "relaxed"
+    ],
+    "serious": [
+      "serious",
+      "authoritative",
+      "credible",
+      "formal",
+      "trustworthy",
+      "grave"
+    ],
+    "warm": [
+      "warm",
+      "friendly",
+      "kind",
+      "homey",
+      "folksy"
+    ],
+    "casual": [
+      "casual",
+      "conversational",
+      "relatable",
+      "chill",
+      "natural",
+      "everyday"
+    ],
+    "dramatic": [
+      "dramatic",
+      "theatrical",
+      "big",
+      "intense",
+      "bold",
+      "powerful"
+    ],
+    "gritty": [
+      "gritty",
+      "raspy",
+      "rough",
+      "gravelly",
+      "grit"
+    ],
+    "clear": [
+      "clear",
+      "clean",
+      "crisp",
+      "articulate",
+      "polished"
+    ],
+    "soft": [
+      "soft",
+      "whisper",
+      "whispered",
+      "quiet",
+      "close-mic",
+      "breathy"
+    ],
+    "professional": [
+      "professional",
+      "corporate",
+      "business",
+      "enterprise",
+      "b2b"
+    ]
+  },
+  "voices": [
+    {
+      "short_name": "Titan",
+      "name": "Titan - Deep, Bold, and Powerful",
+      "slug": "titan-deep-bold-and-powerful",
+      "voice_id": "dtSEyYGNJqjrtBArPCVZ",
+      "collection": "Narrative",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Low voice. Clean consonants.",
+      "source_use_cases": [
+        "Explainers",
+        "Documentary",
+        "Story recaps"
+      ],
+      "pitch": "Low and heavy, but every word still lands separately. Built for serious subjects.",
+      "best_for": [
+        "Serious explainers",
+        "Documentary",
+        "Story recaps"
+      ],
+      "tradeoff": "The weight can flatten light or playful topics. On a fun listicle it sounds like a warning.",
+      "traits": [
+        "deep",
+        "serious",
+        "clear"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 1,
+        "social-news": 1,
+        "explainer": 3,
+        "documentary": 3,
+        "long-form": 2,
+        "fiction": 2,
+        "trailer": 2,
+        "support": 1,
+        "broadcast": 1,
+        "atmosphere": 0,
+        "character": 0,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A02_003_dtSEyYGNJqjrtBArPCVZ_preview.mp3",
+      "sample_path": "/audio/A02_003_dtSEyYGNJqjrtBArPCVZ_preview.mp3",
+      "sample_duration": 7.601625,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/titan-deep-bold-and-powerful",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/e0464333b21941625fcdd28b2ce050bc74911f6bd69cec0d6861a8bd9e24032b/dtSEyYGNJqjrtBArPCVZ",
+      "featured_order": 1
+    },
+    {
+      "short_name": "Jett",
+      "name": "Jett - Fast-Paced and Sharp Narrator",
+      "slug": "jett-fast-paced-and-sharp-narrator",
+      "voice_id": "Hi6tnmUNNYzDCgW5eJyH",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Quick, without sounding breathless.",
+      "source_use_cases": [
+        "YouTube explainers",
+        "Commentary",
+        "Short stories"
+      ],
+      "pitch": "Quick without sounding breathless. Good for commentary where the script is already tight.",
+      "best_for": [
+        "YouTube explainers",
+        "Commentary",
+        "Short stories"
+      ],
+      "tradeoff": "Speed exposes padding. Trim the script first or the filler gets loud.",
+      "traits": [
+        "fast",
+        "clear",
+        "energetic"
+      ],
+      "fit": {
+        "short-video": 3,
+        "hooks-ads": 2,
+        "social-news": 2,
+        "explainer": 3,
+        "documentary": 1,
+        "long-form": 1,
+        "fiction": 2,
+        "trailer": 1,
+        "support": 1,
+        "broadcast": 1,
+        "atmosphere": 0,
+        "character": 1,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A03_001_Hi6tnmUNNYzDCgW5eJyH_preview.mp3",
+      "sample_path": "/audio/A03_001_Hi6tnmUNNYzDCgW5eJyH_preview.mp3",
+      "sample_duration": 10.475063,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/jett-fast-paced-and-sharp-narrator",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/bd54bfca975b7a429fcdc927f8d90e31d6655f014dca365112e523a3abd45ee3/Hi6tnmUNNYzDCgW5eJyH",
+      "featured_order": 2
+    },
+    {
+      "short_name": "Derek",
+      "name": "Derek - Captivating News Anchor",
+      "slug": "derek-captivating-news-anchor",
+      "voice_id": "YgrS0YQVeTTwGJKRYx5E",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, middle-aged",
+      "listening_note": "Firm broadcast pacing.",
+      "source_use_cases": [
+        "Digital updates",
+        "News-style video",
+        "Event coverage"
+      ],
+      "pitch": "A straight news read with firm pacing. Sounds like the person who reads the bulletin.",
+      "best_for": [
+        "News-style video",
+        "Digital updates",
+        "Event coverage"
+      ],
+      "tradeoff": "Formal by default. On a casual creator clip it can sound like a press release. Test names and dates first.",
+      "traits": [
+        "serious",
+        "clear",
+        "professional"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 1,
+        "social-news": 2,
+        "explainer": 2,
+        "documentary": 2,
+        "long-form": 1,
+        "fiction": 0,
+        "trailer": 1,
+        "support": 2,
+        "broadcast": 3,
+        "atmosphere": 0,
+        "character": 0,
+        "inspirational": 0,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A05_001_YgrS0YQVeTTwGJKRYx5E_preview.mp3",
+      "sample_path": "/audio/A05_001_YgrS0YQVeTTwGJKRYx5E_preview.mp3",
+      "sample_duration": 8.48975,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/derek-captivating-news-anchor",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/986dea1fcfbe6dcbda4c7f6980fdf8f0b59fda73adb04da7dfdd4be27beac5a2/YgrS0YQVeTTwGJKRYx5E",
+      "featured_order": 3
+    },
+    {
+      "short_name": "Pulse",
+      "name": "Pulse – Social Media News, Trending Stories, Viral Headlines Voice",
+      "slug": "pulse-social-media-news-trending-stories-viral-headlines-voice",
+      "voice_id": "mhgBlD8CmCSdwLDOIJpA",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Loose and quick.",
+      "source_use_cases": [
+        "Trending stories",
+        "Reels",
+        "Short updates"
+      ],
+      "pitch": "Loose and quick, closer to a friend catching you up than an announcer.",
+      "best_for": [
+        "Trending stories",
+        "Reels",
+        "Short updates"
+      ],
+      "tradeoff": "The looseness undercuts heavy news. Try it on a short recap before trusting it with anything grim.",
+      "traits": [
+        "fast",
+        "casual",
+        "energetic"
+      ],
+      "fit": {
+        "short-video": 3,
+        "hooks-ads": 2,
+        "social-news": 3,
+        "explainer": 1,
+        "documentary": 0,
+        "long-form": 0,
+        "fiction": 1,
+        "trailer": 0,
+        "support": 0,
+        "broadcast": 1,
+        "atmosphere": 0,
+        "character": 1,
+        "inspirational": 0,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A07_001_mhgBlD8CmCSdwLDOIJpA_preview.mp3",
+      "sample_path": "/audio/A07_001_mhgBlD8CmCSdwLDOIJpA_preview.mp3",
+      "sample_duration": 8.80325,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/pulse-social-media-news-trending-stories-viral-headlines-voice",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/b104834700a0e9eb28f47622e5e5499abe5583778d1570a6d445a579e0a0b484/mhgBlD8CmCSdwLDOIJpA",
+      "featured_order": 4
+    },
+    {
+      "short_name": "Dexter",
+      "name": "Dexter – Customer Support Pro",
+      "slug": "dexter-customer-support-pro",
+      "voice_id": "Smxkoz0xiOoHo5WcSskf",
+      "collection": "Support",
+      "language": "English",
+      "delivery": "American, male, middle-aged",
+      "listening_note": "Steady enough for steps.",
+      "source_use_cases": [
+        "Support videos",
+        "Onboarding",
+        "Training"
+      ],
+      "pitch": "Steady enough for step-by-step instructions. Doesn't rush the part where people follow along.",
+      "best_for": [
+        "Support videos",
+        "Onboarding",
+        "Training"
+      ],
+      "tradeoff": "Built for clarity, so hype copy sounds polite instead of exciting.",
+      "traits": [
+        "calm",
+        "clear",
+        "professional"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 1,
+        "social-news": 0,
+        "explainer": 2,
+        "documentary": 1,
+        "long-form": 2,
+        "fiction": 0,
+        "trailer": 0,
+        "support": 3,
+        "broadcast": 2,
+        "atmosphere": 1,
+        "character": 0,
+        "inspirational": 0,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A13_002_Smxkoz0xiOoHo5WcSskf_preview.mp3",
+      "sample_path": "/audio/A13_002_Smxkoz0xiOoHo5WcSskf_preview.mp3",
+      "sample_duration": 7.784438,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/dexter-customer-support-pro",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/2c79c9f85b01099b7eb10d1340f7f6d43d132db92fe0ede23cd10eef2678f8f1/Smxkoz0xiOoHo5WcSskf",
+      "featured_order": 5
+    },
+    {
+      "short_name": "Bilbop",
+      "name": "Bilbop - YouTube Shorts Creator Clone",
+      "slug": "bilbop-youtube-shorts-creator-clone",
+      "voice_id": "R23cI2hqxAhT17IXmY7O",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Animated, a little restless.",
+      "source_use_cases": [
+        "YouTube Shorts",
+        "Creator content",
+        "Social video"
+      ],
+      "pitch": "Animated and a little restless. Has the push a short social script needs in the first second.",
+      "best_for": [
+        "YouTube Shorts",
+        "Creator content",
+        "Social video"
+      ],
+      "tradeoff": "That restlessness wears on a listener after a few minutes. Keep it to short pieces.",
+      "traits": [
+        "energetic",
+        "fast",
+        "casual"
+      ],
+      "fit": {
+        "short-video": 3,
+        "hooks-ads": 2,
+        "social-news": 2,
+        "explainer": 1,
+        "documentary": 0,
+        "long-form": 0,
+        "fiction": 1,
+        "trailer": 0,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 2,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A01_001_R23cI2hqxAhT17IXmY7O_preview.mp3",
+      "sample_path": "/audio/A01_001_R23cI2hqxAhT17IXmY7O_preview.mp3",
+      "sample_duration": 7.836688,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/bilbop-youtube-shorts-creator-clone",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/0840ee38dbd39580f704e025effa7cc185975852543d8a6433670b7d95fbd457/R23cI2hqxAhT17IXmY7O",
+      "featured_order": null
+    },
+    {
+      "short_name": "Heisenberg",
+      "name": "Heisenberg - Polished, and Clear",
+      "slug": "heisenberg-polished-and-clear",
+      "voice_id": "iEBOK9alpKauGRvBSsFi",
+      "collection": "Narrative",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Low and unhurried.",
+      "source_use_cases": [
+        "Long-form video",
+        "Education",
+        "Narration"
+      ],
+      "pitch": "Sits low and gives each line room. An educational read that doesn't need to sprint.",
+      "best_for": [
+        "Long-form video",
+        "Education",
+        "Narration"
+      ],
+      "tradeoff": "Unhurried pacing eats into tight time limits. Under a minute, a quicker voice fits more words.",
+      "traits": [
+        "deep",
+        "calm",
+        "clear"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 0,
+        "social-news": 0,
+        "explainer": 3,
+        "documentary": 2,
+        "long-form": 3,
+        "fiction": 2,
+        "trailer": 1,
+        "support": 2,
+        "broadcast": 1,
+        "atmosphere": 1,
+        "character": 0,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A02_002_iEBOK9alpKauGRvBSsFi_preview.mp3",
+      "sample_path": "/audio/A02_002_iEBOK9alpKauGRvBSsFi_preview.mp3",
+      "sample_duration": 8.80325,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/heisenberg-polished-and-clear",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/e0464333b21941625fcdd28b2ce050bc74911f6bd69cec0d6861a8bd9e24032b/iEBOK9alpKauGRvBSsFi",
+      "featured_order": null
+    },
+    {
+      "short_name": "Titan Epic",
+      "name": "Titan – Young Epic Storyteller",
+      "slug": "titan-young-epic-storyteller",
+      "voice_id": "f5KRUAmxOzuhrrp8V3zv",
+      "collection": "Narrative",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Rough edge. Dramatic lift.",
+      "source_use_cases": [
+        "Sci-fi",
+        "Trailers",
+        "Story podcasts"
+      ],
+      "pitch": "Rasp, lift, and a bigger performance. For a suspense beat or a trailer line that already asks for size.",
+      "best_for": [
+        "Sci-fi",
+        "Trailers",
+        "Story podcasts"
+      ],
+      "tradeoff": "Plain information sounds overacted. Save it for scripts with real stakes.",
+      "traits": [
+        "dramatic",
+        "gritty",
+        "deep"
+      ],
+      "fit": {
+        "short-video": 2,
+        "hooks-ads": 1,
+        "social-news": 0,
+        "explainer": 0,
+        "documentary": 1,
+        "long-form": 1,
+        "fiction": 3,
+        "trailer": 3,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 2,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A02_004_f5KRUAmxOzuhrrp8V3zv_preview.mp3",
+      "sample_path": "/audio/A02_004_f5KRUAmxOzuhrrp8V3zv_preview.mp3",
+      "sample_duration": 12.982813,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/titan-young-epic-storyteller",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/e0464333b21941625fcdd28b2ce050bc74911f6bd69cec0d6861a8bd9e24032b/f5KRUAmxOzuhrrp8V3zv",
+      "featured_order": null
+    },
+    {
+      "short_name": "Reverend",
+      "name": "Reverend - Raspy and Convincing Preacher",
+      "slug": "reverend-raspy-and-convincing-preacher",
+      "voice_id": "87tjwokZlpNU7QL3HaLP",
+      "collection": "Narrative",
+      "language": "English",
+      "delivery": "American, male, middle-aged",
+      "listening_note": "Resonant, sermon-like cadence.",
+      "source_use_cases": [
+        "Faith-based content",
+        "Monologues",
+        "Motivation"
+      ],
+      "pitch": "Resonant, sermon-like cadence. The preacher point of view is the whole point.",
+      "best_for": [
+        "Faith-based content",
+        "Monologues",
+        "Motivation"
+      ],
+      "tradeoff": "Wrong for neutral copy. Use it only when a preacher's voice belongs in the script.",
+      "traits": [
+        "dramatic",
+        "gritty",
+        "deep"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 0,
+        "social-news": 0,
+        "explainer": 0,
+        "documentary": 0,
+        "long-form": 1,
+        "fiction": 2,
+        "trailer": 1,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 2,
+        "inspirational": 3,
+        "southern": 1
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A04_001_87tjwokZlpNU7QL3HaLP_preview.mp3",
+      "sample_path": "/audio/A04_001_87tjwokZlpNU7QL3HaLP_preview.mp3",
+      "sample_duration": 12.199125,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/reverend-raspy-and-convincing-preacher",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/69b964110b73b86bc63aa74d25fa2b6c697f1ffed8d437c45a0aa773dd8c282f/87tjwokZlpNU7QL3HaLP",
+      "featured_order": null
+    },
+    {
+      "short_name": "Drift",
+      "name": "Drift – Seductive Male ASMR, Comfort, Relaxation, Intimate Narration Voice",
+      "slug": "drift-seductive-male-asmr-comfort-relaxation-intimate-narration-voice",
+      "voice_id": "pampc2KWlRlw8L7yICFx",
+      "collection": "Atmosphere",
+      "language": "English",
+      "delivery": "American, male, middle-aged",
+      "listening_note": "Close-mic and restrained.",
+      "source_use_cases": [
+        "Relaxation",
+        "Comfort reads",
+        "Intimate narration"
+      ],
+      "pitch": "Close to the mic and restrained. The quiet one, for comfort reads and wind-down audio.",
+      "best_for": [
+        "Relaxation",
+        "Comfort reads",
+        "Intimate narration"
+      ],
+      "tradeoff": "Disappears under loud music and sounds odd on marketing copy. Keep the mix sparse.",
+      "traits": [
+        "calm",
+        "soft",
+        "warm"
+      ],
+      "fit": {
+        "short-video": 0,
+        "hooks-ads": 0,
+        "social-news": 0,
+        "explainer": 0,
+        "documentary": 0,
+        "long-form": 2,
+        "fiction": 1,
+        "trailer": 0,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 3,
+        "character": 0,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A06_001_pampc2KWlRlw8L7yICFx_preview.mp3",
+      "sample_path": "/audio/A06_001_pampc2KWlRlw8L7yICFx_preview.mp3",
+      "sample_duration": 12.8,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/drift-seductive-male-asmr-comfort-relaxation-intimate-narration-voice",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/f914ef575963e028214b4b76c2523f24dfe75d39147aab31f73d0ddfa0271069/pampc2KWlRlw8L7yICFx",
+      "featured_order": null
+    },
+    {
+      "short_name": "Havoc",
+      "name": "Havoc - Gritty Southern Narrator",
+      "slug": "havoc-gritty-southern-narrator",
+      "voice_id": "dtVZnErhiiosqofxDzSH",
+      "collection": "Atmosphere",
+      "language": "English",
+      "delivery": "US Southern, male, middle-aged",
+      "listening_note": "Drawl with grit.",
+      "source_use_cases": [
+        "Southern gothic",
+        "Folklore",
+        "Trailers"
+      ],
+      "pitch": "Southern drawl with grit. Gives a folklore or gothic scene a real place on the map.",
+      "best_for": [
+        "Southern gothic",
+        "Folklore",
+        "Trailers"
+      ],
+      "tradeoff": "Wrong for neutral copy. The accent and grit pull focus on anything corporate.",
+      "traits": [
+        "gritty",
+        "dramatic"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 0,
+        "social-news": 0,
+        "explainer": 0,
+        "documentary": 1,
+        "long-form": 1,
+        "fiction": 3,
+        "trailer": 2,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 2,
+        "inspirational": 1,
+        "southern": 3
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A08_001_dtVZnErhiiosqofxDzSH_preview.mp3",
+      "sample_path": "/audio/A08_001_dtVZnErhiiosqofxDzSH_preview.mp3",
+      "sample_duration": 10.396688,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/havoc-gritty-southern-narrator",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/1af53105b4677224ad4103bd4a69bb4519fdc844636df8bda01ed265f5c1b3d2/dtVZnErhiiosqofxDzSH",
+      "featured_order": null
+    },
+    {
+      "short_name": "Timber",
+      "name": "Timber – Southern US Stories & Country Wisdom",
+      "slug": "timber-southern-us-stories-country-wisdom",
+      "voice_id": "1gcivRWlUUhp7wLqy7GB",
+      "collection": "Atmosphere",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Warm Southern pace.",
+      "source_use_cases": [
+        "History",
+        "Tall tales",
+        "Deep dives"
+      ],
+      "pitch": "Warm Southern pace, easier on the ear than Havoc. History and tall tales at a walking speed.",
+      "best_for": [
+        "History",
+        "Tall tales",
+        "Deep dives"
+      ],
+      "tradeoff": "The regional warmth is a choice. It can feel off-brand for global corporate audiences.",
+      "traits": [
+        "warm",
+        "calm",
+        "casual"
+      ],
+      "fit": {
+        "short-video": 1,
+        "hooks-ads": 0,
+        "social-news": 0,
+        "explainer": 2,
+        "documentary": 3,
+        "long-form": 2,
+        "fiction": 2,
+        "trailer": 0,
+        "support": 1,
+        "broadcast": 0,
+        "atmosphere": 1,
+        "character": 1,
+        "inspirational": 1,
+        "southern": 3
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A09_001_1gcivRWlUUhp7wLqy7GB_preview.mp3",
+      "sample_path": "/audio/A09_001_1gcivRWlUUhp7wLqy7GB_preview.mp3",
+      "sample_duration": 9.195063,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/timber-southern-us-stories-country-wisdom",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/4c4fd3ff8042ac92982c2d4c9a7413d33e32d523262349605d6437fbfb9569ac/1gcivRWlUUhp7wLqy7GB",
+      "featured_order": null
+    },
+    {
+      "short_name": "Felix",
+      "name": "Felix – Dramatic Storyteller/Viral Personality",
+      "slug": "felix-dramatic-storyteller-viral-personality",
+      "voice_id": "9IP7wm1J29XaLxnNLxev",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Big swings. Lots of character.",
+      "source_use_cases": [
+        "Animated content",
+        "Viral storytelling",
+        "Motivation"
+      ],
+      "pitch": "A character read with big swings. For animation and story beats that want the performance out front.",
+      "best_for": [
+        "Animated content",
+        "Viral storytelling",
+        "Motivation"
+      ],
+      "tradeoff": "Too much for anything that needs restraint, like instructions or news.",
+      "traits": [
+        "dramatic",
+        "energetic"
+      ],
+      "fit": {
+        "short-video": 2,
+        "hooks-ads": 1,
+        "social-news": 1,
+        "explainer": 0,
+        "documentary": 0,
+        "long-form": 0,
+        "fiction": 2,
+        "trailer": 1,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 3,
+        "inspirational": 2,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A10_001_9IP7wm1J29XaLxnNLxev_preview.mp3",
+      "sample_path": "/audio/A10_001_9IP7wm1J29XaLxnNLxev_preview.mp3",
+      "sample_duration": 8.777125,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/felix-dramatic-storyteller-viral-personality",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/8c84573fc62975c0bd9bf74e0595903b9d9db240324777e2943966c020960b7d/9IP7wm1J29XaLxnNLxev",
+      "featured_order": null
+    },
+    {
+      "short_name": "Snap",
+      "name": "Snap - Fast-paced Viral Narrator",
+      "slug": "snap-fast-paced-viral-narrator",
+      "voice_id": "gWaDC0oXAheKoZfljzuI",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Hard first hit.",
+      "source_use_cases": [
+        "Reels",
+        "Sales scripts",
+        "Hooks"
+      ],
+      "pitch": "Comes in hot with a hard first hit. Built for the first three seconds of a Reel or an ad.",
+      "best_for": [
+        "Hooks",
+        "Reels",
+        "Sales scripts"
+      ],
+      "tradeoff": "Tiring past the hook. Consider handing the rest of the script to a calmer voice.",
+      "traits": [
+        "fast",
+        "energetic"
+      ],
+      "fit": {
+        "short-video": 3,
+        "hooks-ads": 3,
+        "social-news": 2,
+        "explainer": 1,
+        "documentary": 0,
+        "long-form": 0,
+        "fiction": 0,
+        "trailer": 1,
+        "support": 0,
+        "broadcast": 0,
+        "atmosphere": 0,
+        "character": 1,
+        "inspirational": 1,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A11_001_gWaDC0oXAheKoZfljzuI_preview.mp3",
+      "sample_path": "/audio/A11_001_gWaDC0oXAheKoZfljzuI_preview.mp3",
+      "sample_duration": 8.176313,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/snap-fast-paced-viral-narrator",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/b8f58d0d51969edb6ca8a3f935983b037b30e0a71ad89bb3e5c28518e88b0eb0/gWaDC0oXAheKoZfljzuI",
+      "featured_order": null
+    },
+    {
+      "short_name": "Reel",
+      "name": "Reel – Conversational Voice for Short Content",
+      "slug": "reel-conversational-voice-for-short-content",
+      "voice_id": "JKbdwi8BFwQlr1n3fwoT",
+      "collection": "Short-form",
+      "language": "English",
+      "delivery": "American, male, young",
+      "listening_note": "Upbeat and matter-of-fact.",
+      "source_use_cases": [
+        "Short content",
+        "Sales calls",
+        "Clips"
+      ],
+      "pitch": "Casual, direct and upbeat. Talks to one person instead of an audience.",
+      "best_for": [
+        "Short content",
+        "Sales calls",
+        "Clips"
+      ],
+      "tradeoff": "Matter-of-fact by design. Dramatic narration sounds flat in this voice.",
+      "traits": [
+        "casual",
+        "clear",
+        "energetic"
+      ],
+      "fit": {
+        "short-video": 3,
+        "hooks-ads": 3,
+        "social-news": 2,
+        "explainer": 2,
+        "documentary": 0,
+        "long-form": 1,
+        "fiction": 0,
+        "trailer": 0,
+        "support": 2,
+        "broadcast": 1,
+        "atmosphere": 0,
+        "character": 0,
+        "inspirational": 0,
+        "southern": 0
+      },
+      "preview_url": "https://voicefieldguide.com/audio/A12_001_JKbdwi8BFwQlr1n3fwoT_preview.mp3",
+      "sample_path": "/audio/A12_001_JKbdwi8BFwQlr1n3fwoT_preview.mp3",
+      "sample_duration": 7.601625,
+      "page_url": "https://voicefieldguide.com/elevenlabs-voices/reel-conversational-voice-for-short-content",
+      "share_url": "https://elevenlabs.io/app/voice-lab/share/f7c9d8f6f9db18940ec9cf2c2370d142e3fd94619897fffe57a9e786cdd984dd/JKbdwi8BFwQlr1n3fwoT",
+      "featured_order": null
+    }
+  ]
+}
