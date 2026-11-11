@@ -1,3 +1,5 @@
+Hear the voices and read casting notes at [Voice Field Guide](https://voicefieldguide.com).
+
 # Prestige Voices
 
 **Premier voices. Make it sound exceptional.**
