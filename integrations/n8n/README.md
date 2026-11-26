@@ -1,6 +1,6 @@
-Voice Field Guide narration for n8n
+Generate ElevenLabs text-to-speech from a reviewed script
 
-Find a voice for a reviewed script and make narration with your ElevenLabs account. The workflow suggests voices and links to their samples before any generation.
+Choose from 15 Bilbop voices and listen to samples. Review your script, then generate speech through the ElevenLabs API with your own account.
 
 Download the JSON from https://raw.githubusercontent.com/bilbop1/prestige-voices/codex/release/integrations/n8n/voice-field-guide-narration.json . Open a new workflow in n8n. Choose Import from File in the workflow menu.
 
