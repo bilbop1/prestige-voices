@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.bilbop1/prestige-voices",
+  "title": "Prestige Voices",
+  "description": "Find and preview 15 Bilbop voices for narration and video.",
+  "repository": { "url": "https://github.com/bilbop1/prestige-voices", "source": "github" },
+  "version": "1.0.0",
+  "remotes": [{ "type": "streamable-http", "url": "https://casting.voicefieldguide.com/mcp" }]
+}
